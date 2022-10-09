@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import Bg from "../public/images/home.png";
 
 const Home: NextPage = () => {
@@ -9,6 +10,7 @@ const Home: NextPage = () => {
     e.preventDefault();
     router.push("/Demo");
   };
+  const { user: currentUser } = useSelector((state: any) => state.auth);
 
   const toolHandle = (e: any) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ const Home: NextPage = () => {
           <h3 style={{ fontSize: "24px", fontWeight: 500 }}>
             Fast Drawing Tools for Every one
           </h3>
-          {!localStorage.getItem("user") && (
+          {typeof window !== "undefined" && !localStorage.getItem("user") && (
             <button
               type="button"
               className="btn btn-success btn-lg"
@@ -43,7 +45,7 @@ const Home: NextPage = () => {
             </button>
           )}
 
-          {localStorage.getItem("user") && (
+          {typeof window !== "undefined" && localStorage.getItem("user") && (
             <button
               type="button"
               className="btn btn-success btn-lg"
